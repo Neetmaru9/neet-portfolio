@@ -1,53 +1,36 @@
-// footer year
-document.getElementById('year').textContent = new Date().getFullYear();
+// Wire up any .slider on the page that has .slider-btn controls
+(function () {
+  // Find all slider blocks
+  const sliders = Array.from(document.querySelectorAll('.slider'));
+  sliders.forEach((slider) => {
+    // Find the nearest controls (assumes controls are in the same section)
+    const section = slider.closest('section, main, body') || document;
+    const prev = section.querySelector('.slider-controls .prev');
+    const next = section.querySelector('.slider-controls .next');
 
-// Minimal carousel for any .slider
-document.querySelectorAll('.slider').forEach(initSlider);
-function initSlider(root){
-  const track = root.querySelector('.slides');
-  const slides = Array.from(root.querySelectorAll('.slide'));
-  let index = slides.findIndex(s => s.classList.contains('is-active'));
-  if(index < 0) index = 0;
+    const slides = Array.from(slider.querySelectorAll('.slides .slide'));
+    if (!slides.length || !prev || !next) return;
 
-  const controls = root.previousElementSibling?.querySelectorAll('.slider-btn');
-  const prevBtn = controls?.[0];
-  const nextBtn = controls?.[1];
+    let i = slides.findIndex(s => s.classList.contains('is-active'));
+    if (i < 0) { i = 0; slides[0].classList.add('is-active'); slides[0].removeAttribute('aria-hidden'); }
 
-  function update(){
-    slides.forEach((s,i) => {
-      const active = i === index;
-      s.classList.toggle('is-active', active);
-      s.setAttribute('aria-hidden', String(!active));
-      s.setAttribute('aria-label', `${i+1} of ${slides.length}`);
-    });
-    track.style.transform = `translateX(${-100*index}%)`;
-  }
-  function next(){ index = (index + 1) % slides.length; update(); }
-  function prev(){ index = (index - 1 + slides.length) % slides.length; update(); }
+    function show(n) {
+      // hide current
+      slides[i].classList.remove('is-active');
+      slides[i].setAttribute('aria-hidden', 'true');
 
-  nextBtn && nextBtn.addEventListener('click', next);
-  prevBtn && prevBtn.addEventListener('click', prev);
+      // wrap around
+      i = (n + slides.length) % slides.length;
 
-  // swipe on mobile
-  let x0=null;
-  root.addEventListener('pointerdown', e=>x0=e.clientX);
-  root.addEventListener('pointerup', e=>{
-    if(x0===null) return;
-    const dx = e.clientX - x0;
-    if(Math.abs(dx)>40) (dx<0?next:prev)();
-    x0=null;
+      // show next
+      slides[i].classList.add('is-active');
+      slides[i].removeAttribute('aria-hidden');
+
+      // (optional) update aria-label like "2 of 3"
+      slides.forEach((s, idx) => s.setAttribute('aria-label', `${idx + 1} of ${slides.length}`));
+    }
+
+    prev.addEventListener('click', () => show(i - 1));
+    next.addEventListener('click', () => show(i + 1));
   });
-
-  update();
-}
-
-// highlight nav while scrolling
-const navLinks = document.querySelectorAll('.nav a');
-const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-function onScroll(){
-  const y = window.scrollY + 120; let active = 'home';
-  for(const sec of sections){ if(sec.offsetTop <= y) active = sec.id; }
-  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${active}`));
-}
-document.addEventListener('scroll', onScroll, { passive: true });
-onScroll();
+})();

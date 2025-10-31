@@ -40,3 +40,56 @@ body{background:var(--bg);color:var(--fg)}
 .tiny{color:var(--muted);text-align:center}
 
 @media (max-width:900px){.hero-col,.hero-img{grid-column:1/-1}}
+
+
+
+
+
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slides {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+}
+
+.slide.is-active {
+  display: block;
+}
+
+.nav {
+  border: 0;
+  background: transparent;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* Projects/Experience sliders */
+.slides .slide { display: none; }
+.slides .slide.is-active { display: block; }
+
+/* (optional) make the arrow buttons look clickable */
+.slider-btn {
+  border: 0;
+  background: transparent;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+}
+.slider-btn:focus { outline: 2px solid currentColor; outline-offset: 4px; }
