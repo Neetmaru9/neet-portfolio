@@ -85,28 +85,41 @@
   </section>
 
   <!-- PROJECTS (carousel) -->
-  <section id="projects">
-  <h2>Projects</h2>
-  <div class="carousel">
-    <button class="nav prev" aria-label="Previous">‹</button>
-
-    <div class="slides">
-      <article class="slide is-active">
-        <img src="assets/clock.jpg" alt="12/24h Digital Clock" loading="lazy">
-        <h3>12/24h Digital Clock</h3>
-        <p>4-layer OrCAD board with 7490/7408/555, integrity + EMC verified.</p>
-      </article>
-
-      <article class="slide">
-        <img src="assets/salinity.jpg" alt="Salinity Meter" loading="lazy">
-        <h3>Salinity Meter</h3>
-        <p>Short description…</p>
-      </article>
+<section id="projects" class="container section" aria-labelledby="proj-title">
+  <div class="section-head">
+    <h2 id="proj-title">Projects</h2>
+    <div class="slider-controls">
+      <button class="slider-btn prev" aria-label="Previous project slide">‹</button>
+      <button class="slider-btn next" aria-label="Next project slide">›</button>
     </div>
+  </div>
 
-    <button class="nav next" aria-label="Next">›</button>
+  <div class="slider" data-slider="projects" role="region" aria-roledescription="carousel" aria-label="Projects">
+    <ul class="slides">
+      <li class="card slide is-active" aria-roledescription="slide" aria-label="1 of 3">
+        <img class="thumb" src="assets/clock.png" alt="" loading="lazy" />
+        <h3>12/24h Digital Clock</h3>
+        <p class="meta">May 2023</p>
+        <p>4-layer OrCAD board with 7490/7408/555; integrity + EMC verified.</p>
+      </li>
+
+      <li class="card slide" aria-roledescription="slide" aria-label="2 of 3" aria-hidden="true">
+        <img class="thumb" src="assets/salinity.png" alt="" loading="lazy" />
+        <h3>Salinity Meter</h3>
+        <p class="meta">Dec 2022</p>
+        <p>2-layer OrCAD PCB with LM324 + resistive sensor; precise low-level A/D.</p>
+      </li>
+
+      <li class="card slide" aria-roledescription="slide" aria-label="3 of 3" aria-hidden="true">
+        <img class="thumb" src="assets/asrs.png" alt="" loading="lazy" />
+        <h3>Automatic Storage &amp; Retrieval</h3>
+        <p class="meta">May 2021</p>
+        <p>ABB PLC + HMI + IR/limit switches; 5 DC motors; ~90% efficiency/space.</p>
+      </li>
+    </ul>
   </div>
 </section>
+
 
 </main>
 
@@ -121,7 +134,7 @@
 </footer>
 <script src="script.js?v=3" defer></script>
 <link rel="stylesheet" href="styles.css">
-<script src="script.js" defer></script>
-
+<script src="script.js?v=3" defer></script>
 </body>
 </html>
+
